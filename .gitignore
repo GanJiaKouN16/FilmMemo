@@ -1,0 +1,34 @@
+# Android
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+/app/build
+/app/release
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# Kotlin
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.war
+*.ear
+
+# Gradle
+.gradle/
+build/
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr

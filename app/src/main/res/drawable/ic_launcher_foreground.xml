@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Film reel circle -->
+    <path
+        android:fillColor="#8B5A2B"
+        android:pathData="M54,27 A27,27 0 1,1 53.99,27"/>
+    <!-- Inner hole -->
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M54,42 A12,12 0 1,1 53.99,42"/>
+    <!-- Film strip top -->
+    <path
+        android:fillColor="#8B5A2B"
+        android:pathData="M30,50 L78,50 L78,58 L30,58 Z"/>
+    <!-- Film strip bottom -->
+    <path
+        android:fillColor="#8B5A2B"
+        android:pathData="M30,62 L78,62 L78,70 L30,70 Z"/>
+    <!-- Sprocket holes -->
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M35,51 L39,51 L39,57 L35,57 Z"/>
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M45,51 L49,51 L49,57 L45,57 Z"/>
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M55,51 L59,51 L59,57 L55,57 Z"/>
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M65,51 L69,51 L69,57 L65,57 Z"/>
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M35,63 L39,63 L39,69 L35,69 Z"/>
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M45,63 L49,63 L49,69 L45,69 Z"/>
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M55,63 L59,63 L59,69 L55,69 Z"/>
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M65,63 L69,63 L69,69 L65,69 Z"/>
+</vector>
