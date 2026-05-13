@@ -7,6 +7,7 @@ import androidx.exifinterface.media.ExifInterface
 data class ExifData(
     val aperture: Double,
     val shutterSpeed: String,
+    val iso: Int,
     val hasFlash: Boolean,
     val flashGN: Double?
 )
@@ -42,7 +43,7 @@ object ExifReader {
             inputStream.close()
 
             return if (aperture > 0 && shutterSpeed != null && iso > 0) {
-                ExifData(aperture, shutterSpeed, hasFlash, null)
+                ExifData(aperture, shutterSpeed, iso, hasFlash, null)
             } else {
                 null
             }

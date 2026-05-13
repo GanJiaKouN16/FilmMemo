@@ -16,16 +16,36 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: gradle
 
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: '8.7'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Build Debug APK
-        run: ./gradlew assembleDebug
+        id: build
+        run: |
+          set +e
+          ./gradlew assembleDebug --stacktrace > build.log 2>&1
+          EXIT_CODE=$?
+          set -e
+          echo "EXIT_CODE=$EXIT_CODE" >> $GITHUB_OUTPUT
+          cat build.log
+
+      - name: Upload build log
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          retention-days: 7
+
+      - name: Fail if build failed
+        if: steps.build.outputs.EXIT_CODE != '0'
+        run: |
+          echo "Build failed with exit code ${{ steps.build.outputs.EXIT_CODE }}"
+          exit 1
 
       - name: Upload APK
+        if: steps.build.outputs.EXIT_CODE == '0'
         uses: actions/upload-artifact@v4
         with:
           name: filmemo-debug

@@ -30,9 +30,9 @@ class LightmeterFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var db: FilmDatabase
 
-    // Common values
-    private val commonApertures = listOf(1.4, 2.0, 2.8, 4.0, 5.6, 8.0, 11.0, 16.0, 22.0)
-    private val commonShutters = listOf("1/1000", "1/500", "1/250", "1/125", "1/60", "1/30", "1/15", "1/8", "1/4", "1/2", "1", "2", "4", "8", "15", "30")
+    // Common values from LightMeter
+    private val commonApertures = LightMeter.COMMON_APERTURES
+    private val commonShutters = LightMeter.COMMON_SHUTTER_SPEEDS
     private val commonDistances = listOf(0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0)
 
     // Current values
@@ -296,17 +296,13 @@ class LightmeterFragment : Fragment() {
         }
     }
 
-    private fun openCamera() {
-        val photoFile = createTempImageFile()
-        photoUri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", photoFile)
-        takePicture.launch(photoUri)
-    }
-
     private fun createTempImageFile(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir = requireContext().cacheDir
         return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
     }
+
+    private var tempPhotoPath: String? = null
 
     private fun showExifPreviewDialog(exifData: com.filmemo.util.ExifData) {
         val currentFilmId = db.getCurrentFilmId() ?: return
@@ -315,12 +311,21 @@ class LightmeterFragment : Fragment() {
         val dialog = ExifPreviewDialog.newInstance(
             filmId = currentFilmId,
             iso = film.iso,
+            cameraIso = exifData.iso,
             aperture = exifData.aperture,
             shutterSpeed = exifData.shutterSpeed,
             hasFlash = exifData.hasFlash,
-            flashGN = exifData.flashGN
+            flashGN = exifData.flashGN,
+            photoPath = tempPhotoPath
         )
         dialog.show(parentFragmentManager, "exif_preview")
+    }
+
+    private fun openCamera() {
+        val photoFile = createTempImageFile()
+        tempPhotoPath = photoFile.absolutePath
+        photoUri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", photoFile)
+        takePicture.launch(photoUri)
     }
 
     override fun onDestroyView() {
