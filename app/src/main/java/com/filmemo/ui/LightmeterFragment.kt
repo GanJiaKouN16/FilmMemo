@@ -68,6 +68,7 @@ class LightmeterFragment : Fragment() {
         setupExposureSeekbars()
 
         // Setup flash switch
+        binding.switchFlash.isChecked = false
         binding.switchFlash.setOnCheckedChangeListener { _, isChecked ->
             flashEnabled = isChecked
             binding.layoutFlashContent.visibility = if (isChecked) View.VISIBLE else View.GONE
